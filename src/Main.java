@@ -4,9 +4,61 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        Agenda agenda = new Agenda();
+        int escolha;
 
+        do {
+            System.out.println("Agenda Telefônica:");
+            System.out.println("1. Adicionar Contato");
+            System.out.println("2. Listar Contatos");
+            System.out.println("3. Atualizar Contato");
+            System.out.println("4. Remover Contato");
+            System.out.println("5. Sair");
+            System.out.println();
+            System.out.print("Escolha uma opção: ");
+            escolha = scanner.nextInt();
+            scanner.nextLine();
 
+            switch (escolha) {
+                case 1:
+                    System.out.print("Digite o nome do contato: ");
+                    String nome = scanner.nextLine();
+                    System.out.println("Digite o telefone do contato: ");
+                    int telefone = scanner.nextInt();
+                    scanner.nextLine();
+                    agenda.adicionarContato(nome, telefone);
+                    break;
 
+                case 2:
+                    agenda.listarContatos();
+                    break;
+
+                case 3:
+                    System.out.print("Digite o número do contato que quer atualizar: ");
+                    int indiceInput = scanner.nextInt() - 1;
+                    scanner.nextLine();
+                    System.out.print("Digite o novo nome: ");
+                    String novoNome = scanner.nextLine();
+                    System.out.print("Digite o novo telefone: ");
+                    int novoTelefone = scanner.nextInt();
+                    scanner.nextLine();
+                    agenda.atualizarContato(indiceInput, novoNome, novoTelefone);
+                    break;
+
+                case 4:
+                    System.out.print("Digite o número do contato que deseja remover: ");
+                    int indiceRemover = scanner.nextInt() - 1;
+                    agenda.removerContato(indiceRemover);
+                    break;
+
+                case 5:
+                    System.out.println("Saindo da agenda. Até logo!");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        } while (escolha != 5);
         scanner.close();
     }
 }
@@ -36,8 +88,9 @@ class Contato {
         this.telefone = telefone;
     }
 
-    public String exibir(){
-        return "nome: " + nome + ", Telefone: " + telefone;
+    @Override
+    public String toString(){
+        return " nome: " + nome + ", Telefone: " + telefone;
     }
 }
 
